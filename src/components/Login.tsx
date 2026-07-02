@@ -128,20 +128,28 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </button>
           </form>
           
-          <div className="mt-6 p-3 rounded-lg bg-slate-50 text-[11px] text-slate-500 leading-relaxed border border-slate-100 text-center">
-            <span className="font-semibold text-slate-600 block mb-1">Demo Credentials:</span>
-            <div className="grid grid-cols-3 gap-2 mt-1">
-              <div>
-                <span className="font-medium text-slate-700">Admin</span>
-                <p className="font-mono">admin / adminpassword</p>
+          <div className="mt-6 p-4 rounded-xl bg-slate-50 border border-slate-100 text-left">
+            <span className="font-bold text-xs text-slate-800 block mb-3 text-center uppercase tracking-wider">
+              Demo Portal Access
+            </span>
+            <div className="space-y-2.5 text-xs">
+              <div className="flex justify-between items-center border-b border-slate-200/50 pb-1.5">
+                <span className="font-semibold text-slate-700 bg-amber-50 text-amber-800 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Admin</span>
+                <div className="text-right font-mono text-[11px] text-slate-600">
+                  <span className="text-slate-400">User:</span> admin <span className="text-slate-300 mx-1">|</span> <span className="text-slate-400">Pass:</span> adminpassword
+                </div>
               </div>
-              <div>
-                <span className="font-medium text-slate-700">Teacher</span>
-                <p className="font-mono">teacher / teacherpassword</p>
+              <div className="flex justify-between items-center border-b border-slate-200/50 pb-1.5">
+                <span className="font-semibold text-slate-700 bg-indigo-50 text-indigo-800 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Teacher</span>
+                <div className="text-right font-mono text-[11px] text-slate-600">
+                  <span className="text-slate-400">User:</span> teacher <span className="text-slate-300 mx-1">|</span> <span className="text-slate-400">Pass:</span> teacherpassword
+                </div>
               </div>
-              <div>
-                <span className="font-medium text-slate-700">Student</span>
-                <p className="font-mono">student / studentpassword</p>
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-slate-700 bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Student</span>
+                <div className="text-right font-mono text-[11px] text-slate-600">
+                  <span className="text-slate-400">User:</span> student <span className="text-slate-300 mx-1">|</span> <span className="text-slate-400">Pass:</span> studentpassword
+                </div>
               </div>
             </div>
           </div>
