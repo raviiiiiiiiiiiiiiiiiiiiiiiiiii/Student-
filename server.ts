@@ -53,7 +53,7 @@ async function startServer() {
 
       if (!user.passwordHash) {
         return res.status(400).json({
-          error: 'This account was created with Google Sign-In. Please sign in via Google.',
+          error: 'This account does not support password logins. Please contact support.',
         });
       }
 
@@ -119,7 +119,7 @@ async function startServer() {
 
       if (!user.passwordHash) {
         return res.status(400).json({
-          error: 'Google Sign-In accounts cannot change passwords here. Please manage your Google settings.',
+          error: 'This account does not have a local password configured.',
         });
       }
 

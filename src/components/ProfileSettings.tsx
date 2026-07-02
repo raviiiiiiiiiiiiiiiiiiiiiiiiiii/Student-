@@ -113,80 +113,74 @@ export default function ProfileSettings({ user, token }: ProfileSettingsProps) {
 
           <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">System username</span>
-            <span className="font-semibold text-slate-800 block mt-0.5 font-mono">{user.username || 'Linked via Google Sign-In'}</span>
+            <span className="font-semibold text-slate-800 block mt-0.5 font-mono">{user.username || 'N/A'}</span>
           </div>
         </div>
       </div>
 
       {/* Change Password Card */}
-      {user.username ? (
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-6 space-y-4">
-          <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-            <Key className="w-4 h-4 text-slate-900" /> Change Security Password
-          </h3>
+      <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-6 space-y-4">
+        <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+          <Key className="w-4 h-4 text-slate-900" /> Change Security Password
+        </h3>
 
-          <form onSubmit={handlePasswordChange} className="space-y-4">
+        <form onSubmit={handlePasswordChange} className="space-y-4">
+          <div>
+            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Current Password</label>
+            <input
+              type="password"
+              required
+              placeholder="Enter current password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="w-full bg-slate-50 text-xs border border-slate-200 rounded-lg p-2.5 focus:bg-white focus:border-slate-800 focus:outline-none"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Current Password</label>
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">New Password</label>
               <input
                 type="password"
                 required
-                placeholder="Enter current password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="At least 6 characters"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 className="w-full bg-slate-50 text-xs border border-slate-200 rounded-lg p-2.5 focus:bg-white focus:border-slate-800 focus:outline-none"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">New Password</label>
-                <input
-                  type="password"
-                  required
-                  placeholder="At least 6 characters"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full bg-slate-50 text-xs border border-slate-200 rounded-lg p-2.5 focus:bg-white focus:border-slate-800 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Confirm New Password</label>
-                <input
-                  type="password"
-                  required
-                  placeholder="Re-enter new password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-slate-50 text-xs border border-slate-200 rounded-lg p-2.5 focus:bg-white focus:border-slate-800 focus:outline-none"
-                />
-              </div>
+            <div>
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Confirm New Password</label>
+              <input
+                type="password"
+                required
+                placeholder="Re-enter new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full bg-slate-50 text-xs border border-slate-200 rounded-lg p-2.5 focus:bg-white focus:border-slate-800 focus:outline-none"
+              />
             </div>
+          </div>
 
-            <div className="flex justify-end pt-2">
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm cursor-pointer"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  'Change Password'
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      ) : (
-        <div className="p-4 bg-slate-50 rounded-xl border text-center text-xs text-slate-500 leading-relaxed">
-          Google Sign-In accounts do not use local passwords. Change your profile settings directly inside your Google Account Console.
-        </div>
-      )}
+          <div className="flex justify-end pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm cursor-pointer"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                'Change Password'
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { adminAuth } from '../lib/firebase-admin.ts';
 import jwt from 'jsonwebtoken';
-import { getOrCreateGoogleUser } from '../db/users.ts';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'student-attendance-system-super-secret-key-123';
 
@@ -29,7 +27,7 @@ export const requireAuth = async (
 
   const token = authHeader.split('Bearer ')[1];
   
-  // 1. Try verifying as local Custom JWT first
+  // Verify as local Custom JWT
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as any;
     if (decoded && decoded.id) {
@@ -42,31 +40,10 @@ export const requireAuth = async (
       return next();
     }
   } catch (jwtErr) {
-    // If verification fails, it might be a Firebase token. Proceed to Firebase verify.
+    // If verification fails, return unauthorized
   }
 
-  // 2. Try verifying as Firebase ID Token
-  try {
-    const decodedFirebase = await adminAuth.verifyIdToken(token);
-    // Find or create the user record in PostgreSQL
-    const dbUser = await getOrCreateGoogleUser(
-      decodedFirebase.uid,
-      decodedFirebase.email || '',
-      decodedFirebase.name || decodedFirebase.email?.split('@')[0] || 'Google User'
-    );
-    
-    req.user = {
-      id: dbUser.id,
-      uid: dbUser.uid || undefined,
-      email: dbUser.email,
-      name: dbUser.name,
-      role: dbUser.role as 'admin' | 'teacher' | 'student',
-    };
-    next();
-  } catch (firebaseErr) {
-    console.error('Auth verification failed:', firebaseErr);
-    return res.status(401).json({ error: 'Unauthorized: Invalid or expired token' });
-  }
+  return res.status(401).json({ error: 'Unauthorized: Invalid or expired token' });
 };
 
 export const requireRole = (roles: Array<'admin' | 'teacher' | 'student'>) => {
