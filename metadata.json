@@ -1,0 +1,6 @@
+{
+  "name": "Student Attendance Management System",
+  "description": "A professional full-stack Student Attendance Management System with role-based access control, teacher dashboard, student portals, class management, and secure persistence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
